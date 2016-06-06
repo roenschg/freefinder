@@ -1,0 +1,14 @@
+{
+    "providers": [
+        {
+            "name": "FreeFinder\\Provider\\ICloud",
+            "settings": {
+                "server": "https://pXX-caldav.icloud.com",
+                "appleid": "",
+                "password": "",
+                "principle": "",
+                "calendars": []
+            }
+        }
+    ]
+}
