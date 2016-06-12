@@ -2,6 +2,8 @@
 require(__DIR__.'/vendor/autoload.php');
 
 $config_file = __DIR__.'/settings.json';
+$providers = [];
+$events = [];
 
 // Load configuration file
 if (!file_exists($config_file)) {
@@ -14,13 +16,23 @@ if (!$settings) {
 }
 
 
-foreach ($settings->providers as $provider) {
-    if (!class_exists($provider->name)) {
-        throw new Exception("The provider '{$provider->name}' is not implented!");
+// Read settings and create providers
+foreach ($settings->providers as $provider_settings) {
+    if (!class_exists($provider_settings->name)) {
+        throw new Exception("The provider '{$provider_settings->name}' is not implented!");
     }
 
-    $current_provider = new $provider->name($provider->settings);
-    var_dump($current_provider->getEvents());
+    $providers[] = new $provider_settings->name($provider_settings->settings);
+
 }
 
-// Run vendors and store events
+// Load events
+foreach ($providers as $provider) {
+    $events[] = $provider->getEvents();
+}
+
+// Show event titles
+foreach ($events as $event) {
+    print_r($event);
+    //printf("Event '%s'".PHP_EOL, $event->VEVENT->SUMMARY);
+}
