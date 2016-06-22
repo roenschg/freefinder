@@ -28,11 +28,10 @@ foreach ($settings->providers as $provider_settings) {
 
 // Load events
 foreach ($providers as $provider) {
-    $events[] = $provider->getEvents();
+    $events = array_merge($events, $provider->getEvents());
 }
 
 // Show event titles
 foreach ($events as $event) {
-    print_r($event);
-    //printf("Event '%s'".PHP_EOL, $event->VEVENT->SUMMARY);
+    printf("Event '%s'".PHP_EOL, $event->VEVENT->SUMMARY);
 }
